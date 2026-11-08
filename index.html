@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#1f8a5b">
+<title>Brain Tickle · মগজ সুড়সুড়ি</title>
+<meta name="description" content="Funny picture puzzles for friends and family · বন্ধু ও পরিবারের জন্য মজার ছবির ধাঁধা">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff6e6; --card:#ffffff; --ink:#2a2017; --muted:#7a6a58; --line:#ecdcc4;
+  --green:#1f8a5b; --green-d:#166a45; --red:#e2463a; --yellow:#ffc93c; --blue:#2f6fd6;
+  --ok:#dff5e8; --bad:#fde3e0; --shadow:0 6px 18px rgba(80,50,10,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo Da 2","Noto Sans Bengali",system-ui,sans-serif;font-size:19px;line-height:1.35;min-height:100vh;display:flex;flex-direction:column}
+#app{flex:1;width:100%;max-width:540px;margin:0 auto;padding:14px 16px 24px}
+footer{text-align:center;color:var(--muted);font-size:15px;padding:14px 16px 18px;border-top:1px dashed var(--line)}
+footer b{color:var(--ink)}
+h1,h2,h3{margin:.2em 0;line-height:1.2}
+.bn{display:block;font-size:.88em;color:var(--muted)}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin:12px 0}
+.center{text-align:center}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:14px 16px;font:inherit;font-weight:800;font-size:21px;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 4px 0 var(--green-d);margin:10px 0;line-height:1.2}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--green-d)}
+.btn .bn{color:#e6f7ee;font-weight:600}
+.btn.alt{background:#fff;color:var(--ink);box-shadow:0 4px 0 var(--line);border:2px solid var(--line)}
+.btn.alt .bn{color:var(--muted)}
+.btn.yellow{background:var(--yellow);color:var(--ink);box-shadow:0 4px 0 #d9a21a}
+.btn.yellow .bn{color:#5b4300}
+.btn:disabled{opacity:.6}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+input.big{width:100%;font:inherit;font-size:28px;font-weight:800;letter-spacing:2px;text-align:center;padding:12px;border-radius:16px;border:3px solid var(--line);background:#fffdf8;color:var(--ink)}
+input.big:focus{outline:none;border-color:var(--green)}
+.err{color:var(--red);font-weight:600;min-height:1.4em;text-align:center;font-size:17px}
+.mascot{width:110px;height:110px;display:block;margin:0 auto}
+.mascot.sm{width:72px;height:72px;margin:0;flex:none}
+.bubble{position:relative;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:10px 14px;font-weight:600}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.chip{background:#fff;border:2px solid var(--line);border-radius:999px;padding:3px 12px;font-weight:800;font-size:17px}
+.level{display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:12px 14px;margin:10px 0;border:0;width:100%;font:inherit;text-align:left;cursor:pointer;color:inherit}
+.level .ic{font-size:34px;width:52px;height:52px;display:grid;place-items:center;background:var(--bg);border-radius:14px;flex:none}
+.level .t{flex:1;min-width:0}
+.level .t b{display:block;font-size:19px}
+.level .t small{display:block;color:var(--muted);font-size:15px}
+.level .st{font-size:18px;white-space:nowrap}
+.level.locked{opacity:.55;cursor:default}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800}
+.topbar .pill{background:#fff;border-radius:999px;padding:4px 12px;box-shadow:var(--shadow);font-size:17px;white-space:nowrap}
+.linkbtn{background:none;border:0;font:inherit;color:var(--green-d);font-weight:800;padding:6px 0;cursor:pointer;font-size:17px}
+.q{display:flex;gap:10px;align-items:center;margin:10px 0}
+.q .txt{font-weight:800;font-size:21px}
+.visual{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:14px;margin:10px 0;text-align:center}
+.seq{font-size:38px;letter-spacing:4px;word-break:break-word;line-height:1.4}
+.gridv{display:grid;gap:6px;justify-content:center;font-size:32px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.opt{border:3px solid var(--line);background:#fff;border-radius:18px;font:inherit;font-weight:800;font-size:34px;min-height:78px;cursor:pointer;color:var(--ink);padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
+.opt.text{font-size:19px;min-height:70px}
+.opt.text small{font-size:16px;color:var(--muted);font-weight:600}
+.opt:active{transform:scale(.97)}
+.opt.ok{background:var(--ok);border-color:var(--green)}
+.opt.bad{background:var(--bad);border-color:var(--red)}
+.opt[disabled]{cursor:default}
+.opt .sh{filter:brightness(0);opacity:.82;display:inline-block}
+.opt .xf,.big-e{display:inline-block;font-family:"Baloo Da 2",system-ui,sans-serif}
+.big-e{font-size:84px;line-height:1.1}
+.cells{display:grid;gap:6px;margin:12px 0}
+.cells .opt{min-height:0;aspect-ratio:1;font-size:30px;border-width:2px;border-radius:12px;padding:0}
+.eq{font-size:30px;margin:6px 0;white-space:nowrap}
+.eq b{font-size:26px}
+.feedback{margin:12px 0;display:flex;gap:10px;align-items:flex-start}
+.feedback .bubble{flex:1}
+.pts{font-weight:800;color:var(--green-d)}
+.pts.zero{color:var(--red)}
+.why{display:block;font-weight:600;color:var(--muted);font-size:16px;margin-top:4px}
+.big-num{font-size:44px;font-weight:800;line-height:1}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat{background:#fff;border-radius:16px;padding:10px;text-align:center;box-shadow:var(--shadow)}
+.stat small{display:block;color:var(--muted);font-size:15px}
+.stars{font-size:40px;letter-spacing:4px}
+table.lb{width:100%;border-collapse:collapse}
+.lb td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.lb tr.you td{background:#fff3cf}
+.lb .rk{width:44px;text-align:center;font-weight:800;font-size:22px}
+.lb .nm b{display:block;font-size:19px;word-break:break-word}
+.lb .nm small{color:var(--muted);font-size:14px}
+.lb .sc{text-align:right;font-weight:800;white-space:nowrap}
+.lb .sc small{display:block;color:var(--muted);font-weight:600;font-size:14px}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{background:#fff;border-radius:16px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+.badge .e{font-size:42px}
+.badge b{display:block;font-size:17px}
+.badge small{display:block;color:var(--muted);font-size:14px}
+.badge.off{opacity:.45;filter:grayscale(1)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:14px;font-weight:600;z-index:9;max-width:90vw;text-align:center}
+.demo{background:#fff3cf;border:2px dashed #e0b23a;border-radius:14px;padding:8px 12px;font-size:15px;text-align:center;margin-bottom:6px}
+.spin{display:inline-block;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pop{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.shake{animation:sh .4s}
+@keyframes sh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+svg text{font-family:"Baloo Da 2",system-ui,sans-serif}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<footer>Developed by <b>Md Abid Hassan Mitul</b></footer>
+
+<script src="questions.js"></script>
+<script>
+/* =========================================================
+   SETTINGS — paste your Google Apps Script Web App URL here.
+   Until you do, the game runs in DEMO mode (scores saved only on this phone).
+   ========================================================= */
+const API_URL = "https://script.google.com/macros/s/AKfycbxxZIFccTCCvfB6uInVRrs5DBaq_5dbBmY035o78QbJlUX2BheH1FojzG5J4pQLk-FeSA/exec";
+
+const DEMO = !/^https:\/\/script\.google(usercontent)?\.com\//.test(API_URL);
+const PASS = 6, PER_LEVEL = 10;
+const $app = document.getElementById('app');
+
+/* ---------- small helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const L = (en, bn) => `${en}<span class="bn">${bn}</span>`;
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+function fmtTime(sec){ sec = Math.round(sec); const m = Math.floor(sec/60), s = sec%60; return m ? `${m}m ${s}s` : `${s}s`; }
+function starsFor(c){ return c >= 10 ? 3 : c >= 8 ? 2 : c >= PASS ? 1 : 0; }
+function starStr(n){ return '⭐'.repeat(n) + '☆'.repeat(3-n); }
+function toast(msg){ const t = document.createElement('div'); t.className='toast pop'; t.innerHTML = msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2600); }
+function normPhone(v){
+  let s = String(v||'').replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/\D/g,'');
+  if (s.length === 13 && s.startsWith('880')) s = s.slice(2);
+  return s;
+}
+
+/* ---------- Mama, the mascot (original cartoon, drawn in SVG) ---------- */
+function mascot(expr, cls){
+  const skin = '#f0b98a', dark = '#2a2017';
+  let brows, eyes, mouth, extra = '';
+  switch(expr){
+    case 'happy':
+      brows = `<path d="M38 44 q8-6 16 0 M66 44 q8-6 16 0" stroke="${dark}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      eyes = `<path d="M40 56 q6-7 12 0 M68 56 q6-7 12 0" stroke="${dark}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      mouth = `<path d="M46 84 q14 16 28 0 z" fill="#8a2b1f"/>`; break;
+    case 'laugh':
+      brows = `<path d="M38 42 l14 4 M82 42 l-14 4" stroke="${dark}" stroke-width="4" stroke-linecap="round"/>`;
+      eyes = `<path d="M40 52 l10 5 l-10 5 M80 52 l-10 5 l10 5" stroke="${dark}" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+      mouth = `<path d="M42 80 q18 26 36 0 z" fill="#8a2b1f"/><path d="M50 90 q10 8 20 0" fill="#e86a6a"/>`;
+      extra = `<path d="M30 60 q-4 8 0 12 q4-4 0-12z M90 60 q4 8 0 12 q-4-4 0-12z" fill="#6cc3f0"/>`; break;
+    case 'shock':
+      brows = `<path d="M38 36 q8-8 16-2 M66 34 q8-6 16 2" stroke="${dark}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      eyes = `<circle cx="46" cy="55" r="8" fill="#fff" stroke="${dark}" stroke-width="3"/><circle cx="74" cy="55" r="8" fill="#fff" stroke="${dark}" stroke-width="3"/><circle cx="46" cy="55" r="3.5" fill="${dark}"/><circle cx="74" cy="55" r="3.5" fill="${dark}"/>`;
+      mouth = `<ellipse cx="60" cy="88" rx="7" ry="9" fill="#8a2b1f"/>`; break;
+    case 'party':
+      brows = '';
+      eyes = `<rect x="34" y="48" width="22" height="12" rx="5" fill="${dark}"/><rect x="64" y="48" width="22" height="12" rx="5" fill="${dark}"/><path d="M56 53 h8" stroke="${dark}" stroke-width="4"/>`;
+      mouth = `<path d="M44 82 q16 18 32 0 z" fill="#8a2b1f"/>`;
+      extra = `<g fill="#ffc93c"><circle cx="14" cy="22" r="4"/><circle cx="104" cy="18" r="4"/></g><g fill="#e2463a"><rect x="98" y="34" width="6" height="6" transform="rotate(30 101 37)"/><rect x="12" y="40" width="6" height="6"/></g><g fill="#1f8a5b"><circle cx="24" cy="8" r="3"/><circle cx="94" cy="6" r="3"/></g>`; break;
+    default: /* think */
+      brows = `<path d="M38 44 q8-4 16 0 M66 38 q8-6 16 0" stroke="${dark}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      eyes = `<circle cx="46" cy="55" r="4.5" fill="${dark}"/><circle cx="76" cy="52" r="4.5" fill="${dark}"/>`;
+      mouth = `<path d="M52 88 q8 -3 16 1" stroke="#8a2b1f" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      extra = `<text x="96" y="30" font-size="26" font-weight="800" fill="#1f8a5b">?</text>`;
+  }
+  return `<svg class="mascot ${cls||''}" viewBox="0 0 120 120" role="img" aria-label="Mama">
+    ${extra}
+    <ellipse cx="60" cy="116" rx="34" ry="8" fill="#1f8a5b" opacity=".15"/>
+    <circle cx="22" cy="62" r="8" fill="${skin}"/><circle cx="98" cy="62" r="8" fill="${skin}"/>
+    <circle cx="60" cy="62" r="40" fill="${skin}"/>
+    <path d="M24 46 q2-30 36-32 q34 2 36 32 q-8-16-36-18 q-28 2-36 18z" fill="#3b2a1d"/>
+    <ellipse cx="38" cy="70" rx="6" ry="4" fill="#f08a7a" opacity=".55"/><ellipse cx="82" cy="70" rx="6" ry="4" fill="#f08a7a" opacity=".55"/>
+    ${brows}${eyes}
+    <ellipse cx="60" cy="66" rx="6" ry="5" fill="#e09a6a"/>
+    <path d="M60 74 q-12 -6 -26 4 q10 6 26 0 q16 6 26 0 q-14 -10 -26 -4z" fill="${dark}"/>
+    ${mouth}
+    <g transform="translate(86 86)"><rect x="0" y="6" width="20" height="18" rx="4" fill="#fff" stroke="${dark}" stroke-width="2.5"/><path d="M20 10 q8 0 6 8 q-2 4 -6 3" fill="none" stroke="${dark}" stroke-width="2.5"/><rect x="3" y="9" width="14" height="5" rx="2" fill="#b7703a"/><path d="M6 2 q3 -4 0 -8 M13 2 q3 -4 0 -8" stroke="#aaa" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+  </svg>`;
+}
+
+/* ---------- jokes (Bangladesh flavour, gentle) ---------- */
+const JOKES = {
+  wrong: [
+    ["Did you sleep through school? 😴","স্কুলে কি ঘুমিয়ে ছিলেন?"],
+    ["Even the neighbour's son got this one! 😏","পাশের বাসার ছেলেটাও এটা পেরেছে!"],
+    ["Load-shedding in the brain? 💡","মাথায় লোডশেডিং চলছে নাকি?"],
+    ["Ammu is coming with the sandal! 👡","আম্মু স্যান্ডেল নিয়ে আসছে!"],
+    ["Stuck in Chowrasta traffic? 🚌","চৌরাস্তার জ্যামে আটকে গেলেন?"],
+    ["Have another cup of cha and try again ☕","আরেক কাপ চা খেয়ে আবার চেষ্টা করুন"],
+    ["Mama laughed so hard his cha spilled! 😂","হাসতে হাসতে মামার চা পড়ে গেল!"],
+    ["Did you get this answer from a WhatsApp forward? 📱","উত্তরটা কি হোয়াটসঅ্যাপ ফরোয়ার্ড থেকে পেলেন?"],
+    ["Eat more fish, it opens the brain! 🐟","বেশি করে মাছ খান, মাথা খুলবে!"]
+  ],
+  right: [
+    ["Golden A+! Time to distribute sweets 🍬","গোল্ডেন এ প্লাস! মিষ্টি খাওয়ান!"],
+    ["BCS cadre material! 🎖️","বিসিএস ক্যাডার হয়ে যাবেন!"],
+    ["Your Nanu will be proud 👵","নানু শুনলে খুশি হবে!"],
+    ["Mohalla genius detected 🧠","মহল্লার জিনিয়াস পাওয়া গেছে!"],
+    ["Wah! Mama is giving you a free cha ☕","বাহ! মামা ফ্রি চা খাওয়াবে!"],
+    ["Correct! Tell the neighbour's son 😎","সঠিক! পাশের বাসার ছেলেকে জানিয়ে দিন!"]
+  ],
+  fast: [
+    ["Faster than a CNG on an empty road! 🚕","ফাঁকা রাস্তায় সিএনজির চেয়েও জোরে!"],
+    ["Is this a bullet train? 🚄","এ তো দেখি বুলেট ট্রেন!"],
+    ["Even the metro rail is jealous! 🚇","মেট্রোরেলও হিংসা করছে!"]
+  ],
+  pass: [
+    ["Mama is treating you to cha and singara! ☕","মামা চা-সিঙ্গারা খাওয়াবে!"],
+    ["Distribute sweets in the mohalla! 🍬","মহল্লায় মিষ্টি বিতরণ করুন!"]
+  ],
+  fail: [
+    ["Not this time! Practice makes perfect 💪","এবার হলো না! চর্চায় সব হয়"],
+    ["Eat some ilish and come back stronger 🐟","একটু ইলিশ খেয়ে আবার আসুন!"]
+  ]
+};
+
+/* ---------- titles & prizes ---------- */
+const TITLES = [
+  [0,"Tea Stall Thinker","চায়ের দোকানের চিন্তাবিদ"],[2,"Rickshaw Racer","রিকশা রেসার"],
+  [4,"Bazaar Bargainer","বাজারের দরদাম ওস্তাদ"],[6,"Mohalla Genius","মহল্লার জিনিয়াস"],
+  [8,"Upazila Topper","উপজেলার টপার"],[9,"District Champion","জেলার চ্যাম্পিয়ন"],[10,"BCS Cadre 🎖️","বিসিএস ক্যাডার 🎖️"]
+];
+function titleFor(passed){ let t = TITLES[0]; for (const x of TITLES) if (passed >= x[0]) t = x; return t; }
+function passedOf(levels){ return Object.values(levels||{}).filter(l => l.c >= PASS).length; }
+
+const BADGES = [
+  {id:'first', e:'🎈', n:["First Step","প্রথম পা"], d:["Finish any level","যেকোনো লেভেল শেষ করুন"], test:p => p.plays >= 1},
+  {id:'cha', e:'☕', n:["Cha Lover","চা প্রেমী"], d:["Pass 3 levels","৩টা লেভেল পাস করুন"], test:p => passedOf(p.levels) >= 3},
+  {id:'perfect', e:'💯', n:["Perfect 10","পারফেক্ট ১০"], d:["10/10 in any level","যেকোনো লেভেলে ১০/১০"], test:p => Object.values(p.levels).some(l => l.c >= 10)},
+  {id:'rocket', e:'🚀', n:["Bullet Train","বুলেট ট্রেন"], d:["Pass a level in under 2 minutes","২ মিনিটের কমে লেভেল পাস"], test:p => Object.values(p.levels).some(l => l.c >= PASS && l.t < 120)},
+  {id:'stars', e:'🌟', n:["Star Collector","তারা সংগ্রাহক"], d:["Collect 15 stars","১৫টা তারা জমান"], test:p => p.stars >= 15},
+  {id:'genius', e:'🧠', n:["Mohalla Genius","মহল্লার জিনিয়াস"], d:["Pass 6 levels","৬টা লেভেল পাস করুন"], test:p => passedOf(p.levels) >= 6},
+  {id:'coins', e:'💰', n:["Coin Bag","টাকার থলি"], d:["Earn 1000 coins","১০০০ কয়েন জমান"], test:p => p.coins >= 1000},
+  {id:'cadre', e:'🎖️', n:["BCS Cadre","বিসিএস ক্যাডার"], d:["Pass all 10 levels","১০টা লেভেলই পাস করুন"], test:p => passedOf(p.levels) >= 10},
+  {id:'crown', e:'👑', n:["Number One","এক নম্বর"], d:["Reach #1 on the leaderboard","লিডারবোর্ডে ১ নম্বর হন"], test:p => p.rank === 1},
+];
+const earned = p => BADGES.filter(b => b.test(p)).map(b => b.id);
+
+/* ---------- backend: Google Sheet, or demo storage on this phone ---------- */
+async function api(action, data){
+  const body = Object.assign({action}, data||{});
+  if (DEMO) return demoApi(body);
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const res = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body), signal:ctl.signal});
+    return await res.json();
+  } catch(e){ return {ok:false, error:'network'}; }
+  finally { clearTimeout(timer); }
+}
+function demoApi(p){
+  let db; try { db = JSON.parse(store.get('bt_demo_db') || '{}'); } catch(e){ db = {}; }
+  db.players = db.players || {};
+  const save = () => store.set('bt_demo_db', JSON.stringify(db));
+  const ranked = () => Object.entries(db.players).filter(([,r]) => r.name && r.total > 0).sort((a,b) => (b[1].total - a[1].total) || (a[1].time - b[1].time));
+  const out = ph => { const r = db.players[ph]; const rk = ranked().findIndex(([k]) => k === ph); return {name:r.name, plays:r.plays, coins:r.coins, total:r.total, time:r.time, stars:r.stars, levels:r.levels, rank: rk + 1}; };
+  const phone = normPhone(p.phone);
+  if (p.action === 'board'){
+    let me = null;
+    const rows = ranked().map(([k,r],i) => { if (k === phone) me = {rank:i+1, score:r.total}; return {name:r.name, score:r.total, time:r.time, stars:r.stars, passed:passedOf(r.levels), you:k===phone}; });
+    return {ok:true, rows:rows.slice(0,30), me, total:rows.length};
+  }
+  if (!/^01[3-9]\d{8}$/.test(phone)) return {ok:false, error:'bad_phone'};
+  if (p.action === 'login'){
+    let isNew = false;
+    if (!db.players[phone]){ db.players[phone] = {name:'', plays:0, coins:0, total:0, time:0, stars:0, levels:{}}; isNew = true; save(); }
+    return {ok:true, isNew, player:out(phone)};
+  }
+  const r = db.players[phone]; if (!r) return {ok:false, error:'not_found'};
+  if (p.action === 'setName'){
+    const n = String(p.name||'').replace(/[<>"`]/g,'').replace(/^[=+\-@\s]+/,'').replace(/\s+/g,' ').trim().slice(0,20);
+    if (!n) return {ok:false, error:'bad_name'};
+    r.name = n; save(); return {ok:true, player:out(phone)};
+  }
+  if (p.action === 'score'){
+    const lv = +p.level, s = Math.round(p.score), c = +p.correct, t = Math.round(p.time);
+    const prev = r.levels[lv];
+    if (!prev || s > prev.s || (s === prev.s && t < prev.t)) r.levels[lv] = {s, c, t};
+    r.plays++; r.coins += Math.floor(s/10);
+    r.total = 0; r.time = 0; r.stars = 0;
+    Object.values(r.levels).forEach(l => { r.total += l.s; r.time += l.t; r.stars += starsFor(l.c); });
+    save(); return {ok:true, player:out(phone)};
+  }
+  return {ok:false, error:'bad_action'};
+}
+
+/* ---------- app state ---------- */
+const S = { phone: store.get('bt_phone') || '', player: null };
+
+function render(html){ $app.innerHTML = (DEMO ? `<div class="demo">Demo mode: scores are saved only on this phone. · ডেমো মোড</div>` : '') + html; window.scrollTo(0,0); }
+function loading(msg){ render(`<div class="card center" style="margin-top:40px">${mascot('think')}<p><span class="spin">⏳</span> ${msg || L('Loading…','লোড হচ্ছে…')}</p></div>`); }
+function netError(retry){
+  render(`<div class="card center">${mascot('shock')}<h2>${L('No connection!','সংযোগ নেই!')}</h2>
+    <p>${L('Please check your internet and try again.','ইন্টারনেট দেখে আবার চেষ্টা করুন।')}</p>
+    <button class="btn" id="retry">${L('Try again','আবার চেষ্টা')}</button></div>`);
+  document.getElementById('retry').onclick = retry;
+}
+
+/* ---------- login ---------- */
+function showLogin(err){
+  render(`
+    <div class="center" style="margin-top:12px">
+      ${mascot('happy')}
+      <h1 style="font-size:34px;margin-top:6px">Brain Tickle<span class="bn" style="font-size:28px;color:var(--green-d)">মগজ সুড়সুড়ি</span></h1>
+      <p style="margin:4px 0 0">${L('Funny picture puzzles for the whole family','পুরো পরিবারের জন্য মজার ছবির ধাঁধা')}</p>
+    </div>
+    <div class="card">
+      <label for="ph" style="font-weight:800">${L('Your mobile number','আপনার মোবাইল নম্বর')}</label>
+      <input id="ph" class="big" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="01XXXXXXXXX" value="${esc(S.phone)}">
+      <div class="err" id="err">${err||''}</div>
+      <button class="btn" id="go">${L('Play ▶','খেলুন ▶')}</button>
+      <p style="font-size:15px;color:var(--muted);text-align:center;margin:4px 0 0">${L('No OTP, no password. Just your number.','ওটিপি নেই, পাসওয়ার্ড নেই। শুধু নম্বর।')}</p>
+    </div>`);
+  const ph = document.getElementById('ph');
+  const go = async () => {
+    const n = normPhone(ph.value);
+    if (!/^01[3-9]\d{8}$/.test(n)){
+      document.getElementById('err').innerHTML = L('Please enter a valid 11-digit number (01XXXXXXXXX)','সঠিক ১১ সংখ্যার নম্বর দিন (01XXXXXXXXX)');
+      ph.classList.add('shake'); setTimeout(() => ph.classList.remove('shake'), 400); return;
+    }
+    loading();
+    const r = await api('login', {phone:n});
+    if (!r.ok) return r.error === 'network' ? netError(go) : showLogin(L('Something went wrong. Try again.','কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।'));
+    S.phone = n; store.set('bt_phone', n); S.player = r.player;
+    if (!r.player.name) showName(true); else showHome();
+  };
+  document.getElementById('go').onclick = go;
+  ph.onkeydown = e => { if (e.key === 'Enter') go(); };
+}
+
+/* ---------- name ---------- */
+function showName(isNew){
+  render(`
+    <div class="card center">
+      ${mascot('happy')}
+      <h2>${isNew ? L('Welcome! 🎉','স্বাগতম! 🎉') : L('Change your name','নাম পরিবর্তন করুন')}</h2>
+      <p>${L('What should Mama call you?','মামা আপনাকে কী নামে ডাকবে?')}</p>
+      <input id="nm" class="big" style="font-size:24px;letter-spacing:0" maxlength="20" placeholder="${esc('Name · নাম')}" value="${esc(S.player.name||'')}">
+      <div class="err" id="err"></div>
+      <button class="btn" id="save">${L('Save ✔','সংরক্ষণ ✔')}</button>
+      ${isNew ? '' : `<button class="btn alt" id="back">${L('Back','পেছনে')}</button>`}
+      <p style="font-size:15px;color:var(--muted)">${L('Everyone will see this name on the leaderboard.','এই নাম লিডারবোর্ডে সবাই দেখবে।')}</p>
+    </div>`);
+  const nm = document.getElementById('nm'); nm.focus();
+  const save = async () => {
+    const v = nm.value.trim();
+    if (!v){ document.getElementById('err').innerHTML = L('Please write a name','একটা নাম লিখুন'); return; }
+    const btn = document.getElementById('save'); btn.disabled = true;
+    const r = await api('setName', {phone:S.phone, name:v});
+    if (!r.ok){ btn.disabled = false; document.getElementById('err').innerHTML = r.error === 'network' ? L('No internet. Try again.','ইন্টারনেট নেই। আবার চেষ্টা করুন।') : L('Could not save. Try again.','সংরক্ষণ হয়নি। আবার চেষ্টা করুন।'); return; }
+    S.player = r.player; showHome();
+  };
+  document.getElementById('save').onclick = save;
+  nm.onkeydown = e => { if (e.key === 'Enter') save(); };
+  const b = document.getElementById('back'); if (b) b.onclick = showHome;
+}
+
+/* ---------- home: level list ---------- */
+function unlocked(lv){ return lv === 1 || ((S.player.levels[lv-1] || {}).c >= PASS); }
+function showHome(){
+  const p = S.player, passed = passedOf(p.levels), t = titleFor(passed);
+  const lvls = window.LEVELS.map(l => {
+    const best = p.levels[l.n], open = unlocked(l.n);
+    const right = !open ? '🔒' : best ? starStr(starsFor(best.c)) : '▶';
+    return `<button class="level ${open?'':'locked'}" data-lv="${l.n}" ${open?'':'aria-disabled="true"'}>
+      <span class="ic">${l.icon}</span>
+      <span class="t"><b>${l.n}. ${esc(l.name[0])}</b><small>${esc(l.name[1])} · ${esc(l.kind[1])}</small>
+      ${best ? `<small>${L(`Best: ${best.s} pts · ${best.c}/10 · ${fmtTime(best.t)}`,'')}</small>` : ''}</span>
+      <span class="st">${right}</span></button>`;
+  }).join('');
+  render(`
+    <div class="card" style="display:flex;gap:12px;align-items:center">
+      ${mascot('happy','sm')}
+      <div style="flex:1;min-width:0">
+        <b style="font-size:21px;word-break:break-word">${L('Hello, ' + esc(p.name) + '!','হ্যালো, ' + esc(p.name) + '!')}</b>
+        <small style="color:var(--green-d);font-weight:800">${t[1]} · ${t[2]}</small>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip">🏆 ${p.total}</span><span class="chip">⭐ ${p.stars}</span><span class="chip">💰 ${p.coins}</span>${p.rank ? `<span class="chip">#${p.rank}</span>` : ''}
+    </div>
+    <div class="row" style="margin-top:6px">
+      <button class="btn yellow" id="lb">🏆 ${L('Leaderboard','লিডারবোর্ড')}</button>
+      <button class="btn yellow" id="pz">🎁 ${L('My Prizes','আমার পুরস্কার')}</button>
+    </div>
+    <h2 style="margin-top:10px">${L('Choose a level','লেভেল বাছুন')}</h2>
+    ${lvls}
+    <div class="row">
+      <button class="linkbtn" id="cn">✏️ ${L('Change name','নাম বদলান')}</button>
+      <button class="linkbtn" id="lo" style="text-align:right">🔁 ${L('Not you?','আপনি নন?')}</button>
+    </div>`);
+  $app.querySelectorAll('.level').forEach(b => b.onclick = () => {
+    const lv = +b.dataset.lv;
+    if (!unlocked(lv)) return toast(L(`Get ${PASS}/10 in level ${lv-1} to unlock`,`খুলতে লেভেল ${lv-1}-এ ${PASS}/১০ পান`));
+    showIntro(lv);
+  });
+  document.getElementById('lb').onclick = showBoard;
+  document.getElementById('pz').onclick = showPrizes;
+  document.getElementById('cn').onclick = () => showName(false);
+  document.getElementById('lo').onclick = () => { store.del('bt_phone'); S.phone = ''; S.player = null; showLogin(); };
+}
+
+/* ---------- level intro ---------- */
+function showIntro(lv){
+  const l = window.LEVELS.find(x => x.n === lv);
+  render(`
+    <div class="card center">
+      <div style="font-size:54px">${l.icon}</div>
+      <h2>${L(`Level ${lv}: ${esc(l.name[0])}`, esc(l.name[1]))}</h2>
+      <div class="feedback" style="text-align:left">${mascot('think','sm')}<div class="bubble">${L(esc(l.how[0]), esc(l.how[1]))}</div></div>
+      <p style="font-size:16px;color:var(--muted)">${L('No time limit. But faster correct answers earn more points! ⏱','সময়ের বাধা নেই। তবে দ্রুত সঠিক উত্তরে বেশি পয়েন্ট!')}</p>
+      <button class="btn" id="start">${L('Start ▶','শুরু ▶')}</button>
+      <button class="btn alt" id="back">${L('Back','পেছনে')}</button>
+    </div>`);
+  document.getElementById('start').onclick = () => startLevel(lv);
+  document.getElementById('back').onclick = showHome;
+}
+
+/* ---------- playing ---------- */
+let G = null, ticker = null;
+function startLevel(lv){
+  const qs = window.PUZZLES.filter(q => q.lv === lv);
+  G = {lv, qs, i:0, score:0, correct:0, time:0};
+  showQuestion();
+}
+function pointsFor(sec){ const bonus = sec <= 10 ? 50 : sec >= 60 ? 0 : Math.round(50 * (60 - sec) / 50); return 100 + bonus; }
+
+function showQuestion(){
+  const q = G.qs[G.i], l = window.LEVELS.find(x => x.n === G.lv);
+  render(`
+    <div class="topbar">
+      <button class="linkbtn" id="quit">✖ ${L('Quit','বাদ দিন')}</button>
+      <span class="pill">${G.i+1} / ${G.qs.length}</span>
+      <span class="pill" id="clock">⏱ 0s</span>
+      <span class="pill">🏆 ${G.score}</span>
+    </div>
+    <div class="q">${mascot('think','sm')}<div class="txt">${L(esc(q.q[0]), esc(q.q[1]))}</div></div>
+    ${visual(q)}
+    ${options(q)}
+    <div id="fb"></div>`);
+  document.getElementById('quit').onclick = () => { if (confirm('Quit this level? Progress will be lost.\nলেভেল বাদ দেবেন? অগ্রগতি হারিয়ে যাবে।')){ clearInterval(ticker); showHome(); } };
+  const t0 = performance.now(); G.t0 = t0;
+  clearInterval(ticker);
+  ticker = setInterval(() => { const el = document.getElementById('clock'); if (el) el.textContent = '⏱ ' + fmtTime((performance.now() - t0)/1000); }, 250);
+  $app.querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.i));
+}
+
+function answer(i){
+  const q = G.qs[G.i];
+  if (G.answered === G.i) return; G.answered = G.i;
+  clearInterval(ticker);
+  const sec = (performance.now() - G.t0) / 1000;
+  G.time += sec;
+  const ok = i === q.a, pts = ok ? pointsFor(sec) : 0;
+  if (ok){ G.correct++; G.score += pts; }
+  const btns = $app.querySelectorAll('.opt');
+  btns.forEach(b => b.disabled = true);
+  btns[q.a].classList.add('ok');
+  if (!ok) btns[i].classList.add('bad');
+  const joke = ok ? (sec <= 5 ? pick(JOKES.fast) : pick(JOKES.right)) : pick(JOKES.wrong);
+  const face = ok ? (sec <= 5 ? 'shock' : 'happy') : 'laugh';
+  const last = G.i === G.qs.length - 1;
+  document.getElementById('fb').innerHTML = `
+    <div class="feedback pop">${mascot(face,'sm')}
+      <div class="bubble">${L(esc(joke[0]), esc(joke[1]))}
+        <span class="pts ${ok?'':'zero'}" style="display:block;margin-top:4px">${ok ? `+${pts} points · পয়েন্ট` : '0 points · ০ পয়েন্ট'} · ⏱ ${fmtTime(sec)}</span>
+        ${q.x ? `<span class="why">💡 ${esc(q.x[0])}<br>${esc(q.x[1])}</span>` : ''}
+      </div></div>
+    <button class="btn" id="next">${last ? L('See result 🏁','ফলাফল দেখুন 🏁') : L('Next ▶','পরবর্তী ▶')}</button>`;
+  const n = document.getElementById('next'); n.onclick = () => { G.i++; last ? finishLevel() : showQuestion(); };
+  n.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ---------- puzzle pictures ---------- */
+function visual(q){
+  const v = q.v || {};
+  switch(q.t){
+    case 'next': return `<div class="visual"><div class="seq">${esc(v.seq)}</div></div>`;
+    case 'count': {
+      const cols = Math.ceil(Math.sqrt(v.grid.length * 1.3));
+      return `<div class="visual"><div class="gridv" style="grid-template-columns:repeat(${cols},auto);font-size:${v.grid.length > 18 ? 28 : 34}px">${v.grid.map(e => `<span>${e}</span>`).join('')}</div></div>`;
+    }
+    case 'shadow': return `<div class="visual"><span class="big-e">${esc(v.e)}</span></div>`;
+    case 'mirror': return `<div class="visual"><span class="big-e" style="font-weight:800">${esc(v.e)}</span><span class="bn">${L('Original','আসল ছবি')}</span></div>`;
+    case 'maze': return `<div class="visual">${mazeSvg(v)}</div>`;
+    case 'clock': return `<div class="visual">${clockSvg(v.h, v.m)}</div>`;
+    case 'scale': return `<div class="visual">${v.eqs.map(e => `<div class="eq">⚖️ ${e.l.join(' <b>+</b> ')} <b>=</b> ${e.r}</div>`).join('')}<div class="eq" style="margin-top:8px">${esc(v.ask)} <b>=</b> ❓</div></div>`;
+    default: return '';
+  }
+}
+function options(q){
+  if (q.os === 'grid'){
+    const cols = (q.v && q.v.cols) || 4;
+    return `<div class="cells" style="grid-template-columns:repeat(${cols},1fr)">${q.o.map((e,i) => `<button class="opt" data-i="${i}">${esc(e)}</button>`).join('')}</div>`;
+  }
+  const body = (o) => {
+    if (q.os === 'shadow') return `<span class="sh">${esc(o)}</span>`;
+    if (q.os === 'xf') return `<span class="xf" style="transform:${o === 'none' ? 'none' : esc(o)};font-weight:800">${esc(q.v.e)}</span>`;
+    if (Array.isArray(o)) return `<span>${esc(o[0])}</span><small>${esc(o[1])}</small>`;
+    return esc(o);
+  };
+  const isText = q.os === 'text' || q.t === 'clock';
+  return `<div class="opts">${q.o.map((o,i) => `<button class="opt ${isText?'text':''}" data-i="${i}" ${q.t==='clock'?'style="font-size:28px"':''}>${body(o)}</button>`).join('')}</div>`;
+}
+function clockSvg(h, m){
+  const hA = ((h % 12) + m / 60) * 30, mA = m * 6;
+  let nums = '';
+  for (let n = 1; n <= 12; n++){ const a = n * 30 * Math.PI / 180; nums += `<text x="${100 + 70*Math.sin(a)}" y="${100 - 70*Math.cos(a) + 8}" text-anchor="middle" font-size="22" font-weight="800" fill="#2a2017">${n}</text>`; }
+  let ticks = '';
+  for (let k = 0; k < 60; k++){ const a = k * 6 * Math.PI / 180, r1 = k % 5 ? 86 : 82; ticks += `<line x1="${100+r1*Math.sin(a)}" y1="${100-r1*Math.cos(a)}" x2="${100+90*Math.sin(a)}" y2="${100-90*Math.cos(a)}" stroke="#2a2017" stroke-width="${k%5?1.5:3}"/>`; }
+  return `<svg viewBox="0 0 200 200" width="210" height="210" role="img" aria-label="clock">
+    <circle cx="100" cy="100" r="95" fill="#fff" stroke="#1f8a5b" stroke-width="7"/>${ticks}${nums}
+    <line x1="100" y1="100" x2="100" y2="52" stroke="#2a2017" stroke-width="8" stroke-linecap="round" transform="rotate(${hA} 100 100)"/>
+    <line x1="100" y1="100" x2="100" y2="26" stroke="#e2463a" stroke-width="5" stroke-linecap="round" transform="rotate(${mA} 100 100)"/>
+    <circle cx="100" cy="100" r="7" fill="#2a2017"/></svg>`;
+}
+function mazeSvg(v){
+  const n = v.starts.length, W = 320, H = 340, top = 52, bot = H - 52;
+  const X = c => 40 + c * (W - 80) / (n - 1);
+  const colors = ['#e2463a','#2f6fd6','#1f8a5b','#c27c0e'];
+  const paths = v.paths.map((pts, s) => {
+    const P = pts.map((c, k) => [X(c), top + k * (bot - top) / (pts.length - 1)]);
+    let d = `M${P[0][0]} ${P[0][1]}`;
+    for (let k = 0; k < P.length - 1; k++){
+      const p1 = P[k], p2 = P[k+1], dy = (p2[1] - p1[1]) / 2;
+      d += ` C${p1[0].toFixed(1)} ${(p1[1]+dy).toFixed(1)} ${p2[0].toFixed(1)} ${(p2[1]-dy).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
+    return `<path d="${d}" fill="none" stroke="${v.color ? colors[s] : '#5a4a3a'}" stroke-width="5" stroke-linecap="round"/>`;
+  }).join('');
+  const icons = v.starts.map((e, s) => `<text x="${X(s)}" y="36" text-anchor="middle" font-size="30">${e}</text>`).join('')
+              + v.ends.map((e, s) => `<text x="${X(s)}" y="${H - 14}" text-anchor="middle" font-size="30">${e}</text>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:340px" role="img" aria-label="lines">${paths}${icons}</svg>`;
+}
+
+/* ---------- level finished ---------- */
+async function finishLevel(){
+  const before = earned(S.player), oldBest = S.player.levels[G.lv];
+  const res = {level:G.lv, score:G.score, correct:G.correct, time:Math.max(1, Math.round(G.time))};
+  loading(L('Saving your score…','আপনার স্কোর সংরক্ষণ হচ্ছে…'));
+  const r = await api('score', Object.assign({phone:S.phone}, res));
+  if (!r.ok){
+    if (r.error === 'network') return netError(finishLevel);
+    toast(L('Score could not be saved','স্কোর সংরক্ষণ হয়নি'));
+  } else S.player = r.player;
+  const passed = G.correct >= PASS, st = starsFor(G.correct);
+  const newBadges = earned(S.player).filter(id => !before.includes(id)).map(id => BADGES.find(b => b.id === id));
+  const joke = passed ? pick(JOKES.pass) : pick(JOKES.fail);
+  const isBest = !oldBest || G.score > oldBest.s;
+  const hasNext = passed && window.LEVELS.some(l => l.n === G.lv + 1);
+  render(`
+    <div class="card center pop">
+      ${mascot(passed ? 'party' : 'laugh')}
+      <h2>${passed ? L(`Level ${G.lv} passed! 🎉`,`লেভেল ${G.lv} পাস! 🎉`) : L('Almost there!','প্রায় হয়ে গিয়েছিল!')}</h2>
+      <div class="stars">${starStr(st)}</div>
+      <div class="bubble" style="margin-top:8px">${L(esc(joke[0]), esc(joke[1]))}</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="big-num">${G.score}</div><small>${L('Points','পয়েন্ট')}</small></div>
+      <div class="stat"><div class="big-num">${G.correct}/10</div><small>${L('Correct','সঠিক')}</small></div>
+      <div class="stat"><div class="big-num">${fmtTime(G.time)}</div><small>${L('Time taken','সময় লেগেছে')}</small></div>
+      <div class="stat"><div class="big-num">+${Math.floor(G.score/10)}</div><small>💰 ${L('Coins','কয়েন')}</small></div>
+    </div>
+    ${isBest && G.score > 0 ? `<p class="center pts">🏅 ${L('New personal best!','নতুন ব্যক্তিগত সেরা!')}</p>` : ''}
+    ${!passed ? `<p class="center">${L(`Get ${PASS} correct to unlock the next level.`,`পরের লেভেল খুলতে ${PASS}টা সঠিক লাগবে।`)}</p>` : ''}
+    ${newBadges.length ? `<div class="card center"><h3>${L('New prize unlocked!','নতুন পুরস্কার!')}</h3>${newBadges.map(b => `<div style="font-size:46px">${b.e}</div><b>${esc(b.n[0])} · ${esc(b.n[1])}</b>`).join('<br>')}</div>` : ''}
+    ${S.player.rank ? `<p class="center">${L(`You are #${S.player.rank} on the leaderboard`,`লিডারবোর্ডে আপনি #${S.player.rank}`)}</p>` : ''}
+    ${hasNext ? `<button class="btn" id="nx">${L(`Next level ▶`,'পরের লেভেল ▶')}</button>` : ''}
+    <button class="btn ${hasNext ? 'alt' : ''}" id="again">🔁 ${L('Play again','আবার খেলুন')}</button>
+    <button class="btn alt" id="home">🏠 ${L('Home','হোম')}</button>`);
+  if (hasNext) document.getElementById('nx').onclick = () => showIntro(G.lv + 1);
+  document.getElementById('again').onclick = () => startLevel(G.lv);
+  document.getElementById('home').onclick = showHome;
+}
+
+/* ---------- leaderboard ---------- */
+async function showBoard(){
+  loading();
+  const r = await api('board', {phone:S.phone});
+  if (!r.ok) return r.error === 'network' ? netError(showBoard) : (toast('Error'), showHome());
+  const medal = i => ['🥇','🥈','🥉'][i] || (i + 1);
+  const rows = r.rows.map((x, i) => { const t = titleFor(x.passed); return `
+    <tr class="${x.you?'you':''}"><td class="rk">${medal(i)}</td>
+      <td class="nm"><b>${esc(x.name)}${x.you ? ' (you · আপনি)' : ''}</b><small>${t[1]} · ⭐ ${x.stars}</small></td>
+      <td class="sc">${x.score}<small>⏱ ${fmtTime(x.time)}</small></td></tr>`; }).join('');
+  render(`
+    <div class="topbar"><button class="linkbtn" id="back">◀ ${L('Back','পেছনে')}</button><span></span></div>
+    <div class="card center">${mascot('party','sm')}<h2>${L('Leaderboard 🏆','লিডারবোর্ড 🏆')}</h2>
+      <p style="font-size:15px;color:var(--muted);margin:0">${L('Best score of each level added together. Same score? Faster wins!','প্রতি লেভেলের সেরা স্কোর যোগ করে। সমান হলে দ্রুততম জিতবে!')}</p></div>
+    <div class="card" style="padding:6px 10px">
+      ${rows ? `<table class="lb">${rows}</table>` : `<p class="center">${L('No scores yet. Be the first!','এখনো কেউ খেলেনি। প্রথম হোন!')}</p>`}
+    </div>
+    ${r.me && r.me.rank > 30 ? `<p class="center">${L(`Your rank: #${r.me.rank} of ${r.total}`,`আপনার অবস্থান: #${r.me.rank}`)}</p>` : ''}
+    <button class="btn alt" id="back2">🏠 ${L('Home','হোম')}</button>`);
+  document.getElementById('back').onclick = showHome;
+  document.getElementById('back2').onclick = showHome;
+}
+
+/* ---------- prizes ---------- */
+function showPrizes(){
+  const have = earned(S.player);
+  render(`
+    <div class="topbar"><button class="linkbtn" id="back">◀ ${L('Back','পেছনে')}</button><span></span></div>
+    <div class="card center">${mascot('party','sm')}<h2>${L('My Prizes 🎁','আমার পুরস্কার 🎁')}</h2>
+      <p style="margin:0">${L(`${have.length} of ${BADGES.length} collected`,`${BADGES.length}টার মধ্যে ${have.length}টা পেয়েছেন`)}</p></div>
+    <div class="badges">${BADGES.map(b => `<div class="badge ${have.includes(b.id)?'':'off'}"><div class="e">${b.e}</div><b>${esc(b.n[0])}</b><small>${esc(b.n[1])}</small><small style="margin-top:4px">${have.includes(b.id) ? '✅' : '🔒'} ${esc(b.d[0])}<br>${esc(b.d[1])}</small></div>`).join('')}</div>
+    <h3 style="margin-top:16px">${L('Level trophies','লেভেল ট্রফি')}</h3>
+    <div class="card">${window.LEVELS.map(l => { const b = S.player.levels[l.n]; return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line)"><span>${l.icon} ${esc(l.name[0])}</span><span>${b ? starStr(starsFor(b.c)) : '—'}</span></div>`; }).join('')}</div>
+    <button class="btn alt" id="back2">🏠 ${L('Home','হোম')}</button>`);
+  document.getElementById('back').onclick = showHome;
+  document.getElementById('back2').onclick = showHome;
+}
+
+/* ---------- start ---------- */
+(async function boot(){
+  if (!window.PUZZLES || !window.LEVELS){ render(`<div class="card center">questions.js is missing.</div>`); return; }
+  if (!S.phone) return showLogin();
+  loading();
+  const r = await api('login', {phone:S.phone});
+  if (!r.ok) return r.error === 'network' ? netError(boot) : showLogin();
+  S.player = r.player;
+  r.player.name ? showHome() : showName(true);
+})();
+</script>
+</body>
+</html>
